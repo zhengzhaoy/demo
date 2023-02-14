@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.StudentDao">
+    <select id="getStudentAll" resultType="com.example.demo.bean.Student">
+        select * from student
+    </select>
+    <select id="getCourseAll" resultType="com.example.demo.bean.Course">
+        select * from course
+    </select>
+    <select id="getStudent" resultType="com.example.demo.bean.Student">
+        select * from student where name=#{name}
+    </select>
+    <select id="getStudents" resultType="com.example.demo.bean.Student">
+        select * from student where name=#{name}
+    </select>
+    <select id="getNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from test_date where time=#{time}
+    </select>
+    <select id="selectTestBean" parameterType="java.lang.String" resultType="com.example.demo.bean.TestBean">
+        select id,name,time from test_date where time=#{time}
+    </select>
+    <insert id="insertTestBean" parameterType="com.example.demo.bean.TestBean">
+        insert into test_date_copy1(id,name,time) values
+        <foreach collection="list" item="testBean" separator=",">
+            (#{testBean.id},#{testBean.name},#{testBean.time})
+        </foreach>
+    </insert>
+    <select id="insertData" resultType="java.util.Map">
+        select * from ${tableName} where
+        <foreach collection="map.entrySet()" index="key" item="value" separator="and">
+            ${key}=#{value}
+        </foreach>
+    </select>
+    <insert id="insertDatas">
+        insert into ${tableName}
+        <foreach collection="map.keys" item="key" open="(" close=")" separator=",">
+            ${key}
+        </foreach>
+        select
+        <foreach collection="map.values" item="value" separator=",">
+            #{value}
+        </foreach>
+        from dual where not exists(
+        select
+        <foreach collection="map.keys" item="key" separator=",">
+            ${key}
+        </foreach>
+        from ${tableName} where
+        <foreach collection="map.entrySet()" index="key" item="value" separator="and">
+            ${key}=#{value}
+        </foreach>
+        )
+    </insert>
+    <insert id="insertData1">
+        insert into ${tableName}
+        <foreach collection="map.keys" item="key" open="(" close=")" separator=",">
+            ${key}
+        </foreach>
+        select
+        <foreach collection="map.values" item="value" separator=",">
+            #{value}
+        </foreach>
+        from dual where not exists(
+        select ${del}
+        from ${tableName} where ${del}=#{map.${del}}
+        )
+    </insert>
+    <insert id="insertErrorData">
+        insert into student_error(`table`,error) values (#{tableName},#{error})
+    </insert>
+    <select id="selectError" parameterType="java.lang.String" resultType="java.lang.String">
+        select error from student_error where `table`=#{tableName}
+    </select>
+    <insert id="insertJq" parameterType="com.example.demo.bean.JqBean">
+        insert into dataduijie_jq
+        (jjbh,bjxs,cjbs,jjxzqh,cjlb,cjxzqh,cjsj,cdjl,zhzacy,jzsy,jzqz,lzscrs,rysws,rysss,jjdw,cjdw,djsj,jjrqsj,partitionKey,uptime)
+        values
+        <foreach collection="list" item="JqBean" separator=",">
+            (#{JqBean.jjbh},#{JqBean.bjxs},#{JqBean.cjbs},#{JqBean.jjxzqh},#{JqBean.cjlb},#{JqBean.cjxzqh},#{JqBean.cjsj},#{JqBean.cdjl},#{JqBean.zhzacy},#{JqBean.jzsy},#{JqBean.jzqz},#{JqBean.lzscrs},#{JqBean.rysws},#{JqBean.rysss},#{JqBean.jjdw},#{JqBean.cjdw},#{JqBean.djsj},#{JqBean.jjrqsj},#{JqBean.partitionKey},#{JqBean.uptime})
+        </foreach>
+    </insert>
+</mapper>
