@@ -225,7 +225,7 @@ public class TestController {
         threadService.test1();
         System.out.println("查询成功");
         System.out.println("查询成功");
-        System.out.println("查询成功");
+        System.out.println("Holler World！");
         return "查询成功";
     }
 }
