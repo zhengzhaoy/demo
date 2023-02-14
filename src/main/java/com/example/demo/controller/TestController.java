@@ -224,7 +224,7 @@ public class TestController {
     public String test6() {
         threadService.test1();
         System.out.println("查询成功");
-        System.out.println("查询成功");
+        System.out.println("hello");
         System.out.println("查询成功");
         return "查询成功";
     }
