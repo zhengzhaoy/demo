@@ -226,6 +226,7 @@ public class TestController {
         System.out.println("查询成功");
         System.out.println("hello");
         System.out.println("Holler World！");
+        System.out.println("Holler World！");
         return "查询成功";
     }
 }
