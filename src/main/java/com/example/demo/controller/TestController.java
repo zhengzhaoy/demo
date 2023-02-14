@@ -223,6 +223,9 @@ public class TestController {
     @RequestMapping("/test6")
     public String test6() {
         threadService.test1();
+        System.out.println("查询成功");
+        System.out.println("查询成功");
+        System.out.println("查询成功");
         return "查询成功";
     }
 }
